@@ -43,6 +43,14 @@ if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
 endif
 set nobomb
 
+function! OpenFileLocation()  
+    if ( expand("%") != "" )  
+        execute "!start explorer /select, %"   
+    else  
+        execute "!start explorer /select, %:p:h"  
+    endif  
+endfunction
+
 
 " latex settings
 filetype plugin on
@@ -50,6 +58,7 @@ set shellslash
 set grepprg=grep\ -nH\ $*
 filetype indent on
 let g:tex_flavor='latex'
+let g:Tex_UsePython=0
 
 " customize vim-latex place-holders
 let g:Imap_UsePlaceHolders = 1
@@ -62,6 +71,8 @@ let g:Imap_StickyPlaceHolders = 1
 let g:Tex_CompileRule_pdf = 'xelatex --interaction=nonstopmode $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_ViewRule_pdf = 'SumatraPDF'
+let g:Tex_SmartKeyDot = 0
+let g:Tex_MultipleCompileFormats = 'pdf'
 
 
 " workaround for e303
@@ -93,6 +104,7 @@ set relativenumber
 " get into command mode
 inoremap jk <esc>:w<CR>
 
+
 " set tab width
 set tabstop=8
 set softtabstop=2
@@ -102,8 +114,14 @@ set noexpandtab
 
 " set vim font
 set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI
-set gfw=свт╡:h10.5:cGB2312
+set gfw=свт╡:h10:cGB2312
 
+"-----put backup files in a specific folder
+set backupdir=$HOME/vimbackup
+
+
+" python variable
+let $PYTHONHOME="C:\\Program Files (x86)\\python2.7"
 
 
 
@@ -139,6 +157,8 @@ Plugin 'VOom'
 Plugin 'vim-latex/vim-latex'
 Plugin 'Color-Scheme-Explorer'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'vimIM'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -159,4 +179,4 @@ filetype plugin indent on    " required
 
 " set color scheme
 syntax on
-colo freya
+color freya
